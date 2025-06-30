@@ -1,73 +1,89 @@
 'use client'
 import React from 'react';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
-import {AnimatePresence ,motion} from 'framer-motion'
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
+import Image from 'next/image';
+import {Button} from "@/components/ui/button"
+import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
+  const route = useRouter()
+  const routeSignInPage = () => {
+    route.push('/signin')
+  }
+  const routeSignUpPage = () => {
+    route.push('/signup')
+  }
   return (
-    <div className="text-2xl font-bold flex justify-center items-center h-screen">
-      <AnimatePresence>
-      <Card className="flex justify-center w-[50%] border-[#27548A] border-4 shadow-[15px_5px_0_0px_#163f70]">
-        <CardHeader className="flex flex-col">
-          <CardTitle className="text-3xl">Welcome To Eduai</CardTitle>
-          <CardDescription>Courses Education Web and AI Assistant for study</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form action="">
-            <p className="text-lg">Email</p>
-            <Input
-              type="email"
-              placeholder="johnDoe@gmail.com"
-              className="border-none"
-            />
-            <p className="text-lg mt-2">Password</p>
-            <Input type="password" />
-          </form>
-          <div className="mt-2 flex justify-between items-center">
-              <Button className="
-              bg-[#A4B465]
-              text-white round-full 
-              cursor-pointer hover:bg-[#7c884c]
-              transition duration-400 shadow-[0_0_0_3px_#000000_inset] ">
-                Login
-              </Button>
-            <motion.a
-            initial={{scale : 1.0}}
-            whileHover={{scale : 1.1}}
-            href="#" className="text-sm hover:bg-[#ebd59d] duration-100 px-2 py-1 rounded-2xl">
-              Do you have a Account? 🤔
-            </motion.a>
+    <div className="flex items-center justify-between">
+      <div className='mx-5'>
+        <Image alt="Logo" src="/EDUAI.svg" width={100} height={100} />
+      </div> 
+
+      <div className='flex justify-around px-10 py-5 bg-blue-500 w-[40%]'>
+        <div className=' hover:[&>*:nth-child(2)]:translate-x-12.5 hover:[&>*:nth-child(2)]:opacity-100
+        hover:[&>*:nth-child(1)]:-translate-x-5 hover:[&>*:nth-child(1)]:opacity-0 
+        duration-300 flex z-100 bg-red-500 items-center cursor-pointer'>
+          <Image alt='Home' src="/house.svg" width={20} height={20} 
+          className='duration-300 relative left-4.5'/>
+          <p className='duration-300 relative right-15 opacity-0'>Home</p>
+        </div>
+        <div className='hover:[&>*:nth-child(2)]:translate-x-12.5 hover:[&>*:nth-child(2)]:opacity-100
+        hover:[&>*:nth-child(1)]:-translate-x-5 hover:[&>*:nth-child(1)]:opacity-0 
+        duration-300 flex z-100 bg-red-500 items-center cursor-pointer'>
+          <Image alt='Home' src="/house.svg" width={20} height={20} 
+          className='duration-300 relative left-4.5'/>
+          <p className='duration-300 relative right-15 opacity-0'>Home</p>
+        </div>
+        <div className='hover:[&>*:nth-child(2)]:translate-x-12.5 hover:[&>*:nth-child(2)]:opacity-100
+        hover:[&>*:nth-child(1)]:-translate-x-5 hover:[&>*:nth-child(1)]:opacity-0 
+        duration-300 flex z-100 bg-red-500 items-center cursor-pointer'>
+          <Image alt='Home' src="/house.svg" width={20} height={20} 
+          className='duration-300 relative left-4.5'/>
+          <p className='duration-300 relative right-15 opacity-0'>Home</p>
+        </div>
+        <div className='hover:[&>*:nth-child(2)]:translate-x-12.5 hover:[&>*:nth-child(2)]:opacity-100
+        hover:[&>*:nth-child(1)]:-translate-x-5 hover:[&>*:nth-child(1)]:opacity-0 
+        duration-300 flex z-100 bg-red-500 items-center cursor-pointer'>
+          <Image alt='Home' src="/house.svg" width={20} height={20} 
+          className='duration-300 relative left-4.5'/>
+          <p className='duration-300 relative right-15 opacity-0'>Home</p>
+        </div>
+        <div className='hover:[&>*:nth-child(2)]:translate-x-12.5 hover:[&>*:nth-child(2)]:opacity-100
+        hover:[&>*:nth-child(1)]:-translate-x-5 hover:[&>*:nth-child(1)]:opacity-0 
+        duration-300 flex z-100 bg-red-500 items-center cursor-pointer'>
+          <Image alt='Home' src="/house.svg" width={20} height={20} 
+          className='duration-300 relative left-4.5'/>
+          <p className='duration-300 relative right-15 opacity-0'>Home</p>
+        </div>
+      </div>
+     
+      <div className="flex items-center my-2 mr-2 justify-between w-50">
+        <SignedOut>
+          <div className='flex items-center'>
+            <Button onClick={routeSignInPage} className='cursor-pointer'>Sign In</Button>
           </div>
-        </CardContent>
-        <CardFooter className='flex flex-col'>
-            <p className="text-sm mb-2">BUT!! , You can login with...</p>
-            <div className='flex flex-col'>
-              <Button className='bg-[#f2e5c4] flex flex-row items-center justify-center mb-2 
-              cursor-pointer hover:bg-[#ebd59d] duration-400'>
-                <FcGoogle />
-                <p className='text-sm ml-2'>Login With Google</p>
-              </Button>
-              <Button className='bg-[#f2e5c4] flex flex-row items-center justify-center cursor-pointer hover:bg-[#ebd59d] duration-400'>
-                <FaFacebook className='text-[#1778f2]'/>
-                <p className='text-sm ml-2'>Login With Facebook</p>
-              </Button>
-            </div>    
-        </CardFooter>
-      </Card>
-      </AnimatePresence>
+          
+          <div>
+            <button className="bg-[#6c47ff] 
+            text-white rounded-full font-medium 
+            text-sm sm:text-base
+            h-10 sm:h-10 px-1 sm:px-3 
+            cursor-pointer" onClick={routeSignUpPage}>
+              Sign Up
+            </button>
+          </div>
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
