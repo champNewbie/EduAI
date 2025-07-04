@@ -23,12 +23,15 @@ const Page = () => {
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
 
+  console.log('isLoaded:', isLoaded , signIn);
   const handleLogin = async (e: React.FormEvent) => {
+    console.log('handleLogin called' , e);
     e.preventDefault();
     if (!isLoaded) return;
 
     try {
       const result = await signIn.create({ identifier: email, password });
+      console.log('Login result:', result);
       if (result.status === 'complete') {
         await setActive({ session: result.createdSessionId });
       }
@@ -39,11 +42,20 @@ const Page = () => {
   };
 
   const loginWith = (provider: 'oauth_google' | 'oauth_facebook') => {
-    signIn?.authenticateWithRedirect({
-      strategy: provider,
-      redirectUrl: '/', // ✅ change to your success Page
-      redirectUrlComplete: '/',
-    });
+    try {
+      
+      signIn?.authenticateWithRedirect({
+        strategy: provider,
+        redirectUrl: '/', // ✅ change to your success Page
+        redirectUrlComplete: '/',
+      }
+    );
+    } catch (error) {
+      console.error('Error during login with provider:', error);
+      setErr('Login failed, please try again.');
+      
+    }
+    
   };
   return (
     <div className="text-2xl font-bold flex justify-center items-center h-screen">
@@ -76,7 +88,8 @@ const Page = () => {
             {err && <p className="text-sm text-red-500 mt-1">{err}</p>}
             <div className="mt-2 flex justify-between items-center">
               <Button
-                className="
+              type='submit'
+              className="
               bg-[#A4B465]
               text-white round-full 
               cursor-pointer hover:bg-[#7c884c]
